@@ -62,9 +62,9 @@ class Game(object):
             font=('comic sans', 18),
             font_color=pygame.Color('yellow'))
     
-	print("Moving on to buttons...")       
+    print("Moving on to buttons...")       
     
-	self.button_bgimgs = ['images/x.png']
+    self.button_bgimgs = ['images/x.png']
 	# self.button_width = self.button_bgimgs[0].get_width()
 	# self.button_height = self.button_bgimgs[0].get_height()
         
@@ -74,17 +74,17 @@ class Game(object):
     # the coords for an x button in whatever corner we want.
 	# self.button_rect = Rect(self.tboard_width, self.tboard_y-15,
     #                         self.button_width, self.button_height)
-	self.button = Button(self.screen,
+    self.button = Button(self.screen,
                                 pos=vec2d(self.tboard_width, self.tboard_y-15),
                                 btntype='Close',
                                 imgnames=self.button_bgimgs,
                                 attached=self.tboard)
         
-	print("Created close button.")
+    print("Created close button.")
  	
-	self.togglebtn_bgimgs = ['images/toggle1.png', 'images/toggle2.png']
+    self.togglebtn_bgimgs = ['images/toggle1.png', 'images/toggle2.png']
         
-	self.togglebtn = Button(self.screen,
+    self.togglebtn = Button(self.screen,
                                 pos=vec2d(250, 250),
                                 btntype='Toggle',
                                 imgnames=self.togglebtn_bgimgs,
@@ -92,65 +92,65 @@ class Game(object):
 								text="Toggle",
 								textcolor=(255,255,255))
         
-	print("Created toggle button.")
+    print("Created toggle button.")
 	
-	self.clockImg = Images(self.screen,
+    self.clockImg = Images(self.screen,
 					'images/clock.png',
 					pos=vec2d(430,0)
                     )
 				
-	self.hand = Images(self.screen,
+    self.hand = Images(self.screen,
 						'images/secondHand.png',
 						pos=vec2d(505,15),
 						imgtype='Spinner'
                         )
 					
-	self.textTest = textEntry(self.screen, 
+    self.textTest = textEntry(self.screen, 
 						pos=vec2d(0, self.SCREEN_HEIGHT-50),
 						size=vec2d(self.SCREEN_WIDTH,50)
                         )
 						
-	self.floater = movingRect(self.screen,
+    self.floater = movingRect(self.screen,
 						pos=vec2d(self.SCREEN_WIDTH/2, 0),
 						speed=vec2d(0,5)
                         )
 						
-	self.moveImg = movingImg(self.screen,
+    self.moveImg = movingImg(self.screen,
 						"images/toggle1.png",
 						pos=vec2d(0,self.SCREEN_HEIGHT*3/4),
 						speed=vec2d(5, 0)
                         )
 						
-	self.ball = circles(self.screen,
+    self.ball = circles(self.screen,
 						pos=vec2d(25,25),
 						radius = 25
                         )
 	
-	self.buttons = [self.togglebtn]
-	self.textEntries = [self.textTest]
+    self.buttons = [self.togglebtn]
+    self.textEntries = [self.textTest]
 	
-	self.world = [
+    self.world = [
         self.button, self.togglebtn, self.clockImg,
         self.hand, self.textTest, self.moveImg, 
         self.floater, self.ball
         ]
 	
-	self.clock = pygame.time.Clock()
-	self.paused = False
+    self.clock = pygame.time.Clock()
+    self.paused = False
 
 	# spawning entities
 
 	# Setting up gamefield
 	# need a method for dynamically figuring out how many rows/columns we need
 	# based on the spacing we want and field size. Using some constants for now.
-	self.grid_nrows = 30
-	self.grid_ncols = 30
+    self.grid_nrows = 30
+    self.grid_ncols = 30
         
-	self.field_rect = pygame.Rect(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+    self.field_rect = pygame.Rect(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         
-	self.options = dict(debug=True, draw_grid=False)
+    self.options = dict(debug=True, draw_grid=False)
          
-	print("Done setting game options, exiting Game init.")
+    print("Done setting game options, exiting Game init.")
         
     def xy2coord(self, pos):
         """ Convert a (x, y) pair to a (nrow, ncol) coordinate
@@ -213,16 +213,16 @@ class Game(object):
 			
         self.tboard.draw()
 		
-	for obj in self.world:
-			obj.draw()
+    for obj in self.world:
+	    obj.draw()
         
     def run(self):
         print("Beginning run sequence.")
         # The main game loop
-        #
+        
         while True:
             # Limit frame speed to 30 FPS
-            #
+            
             self.time_passed = self.clock.tick(30)
             #~ time_passed = self.clock.tick()
             #~ print time_passed
@@ -231,43 +231,43 @@ class Game(object):
             # update (the game must have been suspended for some
             # reason, and we don't want it to "jump forward"
             # suddenly)
-            #
+            
             if self.time_passed > 100:
                 continue
-           
-	    active = False 
-	    for entry in self.textEntries:
-		    if entry.clicked:
-			    active = True
-            #Event loop. In-game control is routed through here
-            #Will probably need something more robust soon.
-	    for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-		    self.quit()
-		elif event.type == pygame.KEYDOWN and not active:
-		    if event.key == pygame.K_SPACE:
-			self.paused = not self.paused
-		    elif event.key == pygame.K_g:
-			#toggle draw grid
-			self.options['draw_grid'] = not self.options['draw_grid']
-		elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
-		    for button in self.buttons:
-				button.mouse_click_event(event.pos)
-		    for entry in self.textEntries:
-				entry.mouse_click_event(event.pos)
-            
-	    #pass 	temporarily disabled, don't think it does anything
-            
-	    #entity events here.
 
-            #update hud, counters, score, anything like that here
+    active = False 
+    for entry in self.textEntries:
+        if entry.clicked:
+            active = True
+        # Event loop. In-game control is routed through here
+        # Will probably need something more robust soon.
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            self.quit()
+        elif event.type == pygame.KEYDOWN and not active:
+            if event.key == pygame.K_SPACE:
+                self.paused = not self.paused
+            elif event.key == pygame.K_g:
+		# toggle draw grid
+                self.options['draw_grid'] = not self.options['draw_grid']
+        elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
+            for button in self.buttons:
+                button.mouse_click_event(event.pos)
+        for entry in self.textEntries:
+            entry.mouse_click_event(event.pos)
+            
+	    # pass 	temporarily disabled, don't think it does anything
+            
+	    # entity events here.
+
+            # update hud, counters, score, anything like that here
             if not self.paused:
                 msg1 = ''
                 msg2 = ''
                 #update stats counters. Not doing anything yet
                 self.mboard_text = [msg1, msg2]
 
-        #update entities with time passed for internal calculations
+        # update entities with time passed for internal calculations
 
                 self.draw()
             #actually flip Surface buffer
