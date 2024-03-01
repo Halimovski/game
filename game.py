@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 from random import randint, choice
 from math import sin, cos, radians
 
