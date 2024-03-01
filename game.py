@@ -34,7 +34,9 @@ class Game(object):
         
         # set up screen and background
         self.screen = pygame.display.set_mode(
-                        (self.SCREEN_WIDTH, self.SCREEN_HEIGHT), 0, 32)
+                        (self.SCREEN_WIDTH, self.SCREEN_HEIGHT), 
+                        0, 32
+                        )
         self.tile_img = pygame.image.load(self.BG_TILE_IMG).convert_alpha()
         self.tile_img_rect = self.tile_img.get_rect()
         
@@ -47,7 +49,8 @@ class Game(object):
         self.tboard_width = 125
         self.tboard_height = 30
         self.tboard_rect = pygame.Rect(self.tboard_x, self.tboard_y, 
-                                       self.tboard_width, self.tboard_height)
+                                       self.tboard_width, self.tboard_height
+                                       )
         self.tboard_bgcolor = pygame.Color(50, 20, 0)
         self.tboard = MessageBoard(self.screen,
             rect=self.tboard_rect,
@@ -93,29 +96,35 @@ class Game(object):
 	
 	self.clockImg = Images(self.screen,
 					'images/clock.png',
-					pos=vec2d(430,0))
+					pos=vec2d(430,0)
+                    )
 				
 	self.hand = Images(self.screen,
 						'images/secondHand.png',
 						pos=vec2d(505,15),
-						imgtype='Spinner')
+						imgtype='Spinner'
+                        )
 					
 	self.textTest = textEntry(self.screen, 
 						pos=vec2d(0, self.SCREEN_HEIGHT-50),
-						size=vec2d(self.SCREEN_WIDTH,50))
+						size=vec2d(self.SCREEN_WIDTH,50)
+                        )
 						
 	self.floater = movingRect(self.screen,
 						pos=vec2d(self.SCREEN_WIDTH/2, 0),
-						speed=vec2d(0,5))
+						speed=vec2d(0,5)
+                        )
 						
 	self.moveImg = movingImg(self.screen,
 						"images/toggle1.png",
 						pos=vec2d(0,self.SCREEN_HEIGHT*3/4),
-						speed=vec2d(5, 0))
+						speed=vec2d(5, 0)
+                        )
 						
 	self.ball = circles(self.screen,
 						pos=vec2d(25,25),
-						radius = 25)
+						radius = 25
+                        )
 	
 	self.buttons = [self.togglebtn]
 	self.textEntries = [self.textTest]
@@ -139,8 +148,7 @@ class Game(object):
         
 	self.field_rect = pygame.Rect(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         
-	self.options = dict(debug=True, 
-                draw_grid=False)
+	self.options = dict(debug=True, draw_grid=False)
          
 	print("Done setting game options, exiting Game init.")
         
@@ -157,7 +165,8 @@ class Game(object):
         nrow, ncol = coord
         return (
             self.field_rect.left + ncol * self.GRID_SIZE + self.GRID_SIZE / 2, 
-            self.field_rect.top + nrow * self.GRID_SIZE + self.GRID_SIZE / 2)
+            self.field_rect.top + nrow * self.GRID_SIZE + self.GRID_SIZE / 2
+            )
     
     def get_field_rect(self):
         """ Return the internal field rect - the rect of the game
@@ -173,7 +182,8 @@ class Game(object):
         for y in range(nrows):
             for x in range(ncols):
                 img_rect.topleft = (x * img_rect.width, 
-                                    y * img_rect.height)
+                                    y * img_rect.height
+                                    )
                 self.screen.blit(self.tile_img, img_rect)
     
     def draw_grid(self):
@@ -182,14 +192,16 @@ class Game(object):
                 self.screen,
                 pygame.Color(50, 50, 50),
                 (self.field_rect.left, self.field_rect.top + y * self.GRID_SIZE - 1),
-                (self.field_rect.right - 1, self.field_rect.top + y * self.GRID_SIZE - 1))
+                (self.field_rect.right - 1, self.field_rect.top + y * self.GRID_SIZE - 1)
+                )
         
         for x in range(self.grid_ncols + 1):
             pygame.draw.line(
                 self.screen,
                 pygame.Color(50, 50, 50),
                 (self.field_rect.left + x * self.GRID_SIZE - 1, self.field_rect.top),
-                (self.field_rect.left + x * self.GRID_SIZE - 1, self.field_rect.bottom - 1))
+                (self.field_rect.left + x * self.GRID_SIZE - 1, self.field_rect.bottom - 1)
+                )
     
     def draw(self):
         #draw background image
