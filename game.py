@@ -4,15 +4,16 @@ from random import randint, choice
 from math import sin, cos, radians
 
 import pygame
-#from pygame import Rect, Color
-#from pygame.sprite import Sprite
-#you already imported pygame, why import modules twice? Your code will run faster if 
-#you change Rect to pygame.Rect like I did. If this is a style preference, let me know.
+# from pygame import Rect, Color
+# from pygame.sprite import Sprite
+# you already imported pygame, why import modules twice? 
+# Your code will run faster if you change Rect to pygame.
+# Rect like I did. If this is a style preference, let me know.
 
 from utils import Timer
 from vec2d import vec2d
 from widgets import *
-#You were importing all widgets anyway, and there was an unknown error. 
+# You were importing all widgets anyway, and there was an unknown error.
 
 class Game(object):
     print("Setting global Game params.")
@@ -23,29 +24,30 @@ class Game(object):
     GRID_SIZE = 20
     FIELD_SIZE = 400, 400
     
-    #need to implement resource loading here
+    # need to implement resource loading here
     
-    #global game constants make cheating easy!
+    # global game constants make cheating easy!
         
     def __init__(self):
         pygame.init()
         print("Pygame started.")
         
-        #set up screen and background
+        # set up screen and background
         self.screen = pygame.display.set_mode(
                         (self.SCREEN_WIDTH, self.SCREEN_HEIGHT), 0, 32)
         self.tile_img = pygame.image.load(self.BG_TILE_IMG).convert_alpha()
         self.tile_img_rect = self.tile_img.get_rect()
         
-           #Drawing a handy MessageBoard widget
-        #Can use these for any text.
+           # Drawing a handy MessageBoard widget
+        # Can use these for any text.
         print("Configuring tboard MessageBoard params.")
         self.tboard_text = ['This is a test.']
         self.tboard_x = 120
         self.tboard_y = 120
         self.tboard_width = 125
         self.tboard_height = 30
-        self.tboard_rect = pygame.Rect(self.tboard_x, self.tboard_y, self.tboard_width, self.tboard_height)
+        self.tboard_rect = pygame.Rect(self.tboard_x, self.tboard_y, 
+                                       self.tboard_width, self.tboard_height)
         self.tboard_bgcolor = pygame.Color(50, 20, 0)
         self.tboard = MessageBoard(self.screen,
             rect=self.tboard_rect,
@@ -60,14 +62,15 @@ class Game(object):
 	print("Moving on to buttons...")       
     
 	self.button_bgimgs = ['images/x.png']
-	#self.button_width = self.button_bgimgs[0].get_width()
-	#self.button_height = self.button_bgimgs[0].get_height()
+	# self.button_width = self.button_bgimgs[0].get_width()
+	# self.button_height = self.button_bgimgs[0].get_height()
         
-	#hopefully this will draw the button -15 pixels from the right end, +15 from the top 
-	#(hopefully giving us a nice X)
-	# should be replaced in the future with a method that returns the coords for an x button
-	# in whatever corner we want.
-	#self.button_rect = Rect(self.tboard_width, self.tboard_y-15, self.button_width, self.button_height)
+	# hopefully this will draw the button -15 pixels
+    # from the right end, +15 from the top (hopefully giving us a nice X)
+	# should be replaced in the future with a method that returns
+    # the coords for an x button in whatever corner we want.
+	# self.button_rect = Rect(self.tboard_width, self.tboard_y-15,
+    #                         self.button_width, self.button_height)
 	self.button = Button(self.screen,
                                 pos=vec2d(self.tboard_width, self.tboard_y-15),
                                 btntype='Close',
@@ -117,20 +120,24 @@ class Game(object):
 	self.buttons = [self.togglebtn]
 	self.textEntries = [self.textTest]
 	
-	self.world = [self.button, self.togglebtn, self.clockImg, self.hand, self.textTest, self.moveImg, self.floater, self.ball]
+	self.world = [
+        self.button, self.togglebtn, self.clockImg,
+        self.hand, self.textTest, self.moveImg, 
+        self.floater, self.ball
+        ]
 	
 	self.clock = pygame.time.Clock()
 	self.paused = False
 
-	#spawning entities
+	# spawning entities
 
-	#Setting up gamefield
-	#need a method for dynamically figuring out how many rows/columns we need based on
-	#the spacing we want and field size. Using some constants for now.
+	# Setting up gamefield
+	# need a method for dynamically figuring out how many rows/columns we need
+	# based on the spacing we want and field size. Using some constants for now.
 	self.grid_nrows = 30
 	self.grid_ncols = 30
         
-	self.field_rect = pygame.Rect(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)       
+	self.field_rect = pygame.Rect(0, 0, self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         
 	self.options = dict(debug=True, 
                 draw_grid=False)
